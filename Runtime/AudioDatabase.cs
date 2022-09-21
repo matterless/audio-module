@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using Random = System.Random;
+using UnityEngine.Audio;
 
 namespace Matterless.Audio
 {
@@ -10,10 +11,11 @@ namespace Matterless.Audio
     {
         #region Inspector
         [SerializeField] private AudioEvent[] m_AudioEvents;
+        [SerializeField] private AudioMixerSnapshot[] m_AudioMixerSnapshots;
         #endregion
 
         private Dictionary<string, AudioEvent> m_AudioDictionary;
-        private readonly Random m_Random = new Random();
+        private Dictionary<string, AudioMixerSnapshot> m_AudioMixerSnapshotDictionary;
 
         internal void Init(bool isDevelop, Action<string, Action<AudioClip>> getAudioClip)
         {
@@ -40,6 +42,17 @@ namespace Matterless.Audio
                     }
                 }
             }
+
+            m_AudioMixerSnapshotDictionary = new Dictionary<string, AudioMixerSnapshot>();
+
+            foreach(var snaphot in m_AudioMixerSnapshots)
+            {
+                if (m_AudioMixerSnapshotDictionary.ContainsKey(snaphot.name))
+                    throw new Exception("Duplicate Audio Mixer Snapshot entry: " + snaphot.name);
+
+                m_AudioMixerSnapshotDictionary.Add(snaphot.name, snaphot);
+            }
+
         }
 
         internal AudioEvent GetAudioEvent(string id)
@@ -50,16 +63,32 @@ namespace Matterless.Audio
             return null;
         }
 
-        internal List<AudioClip> GetShuffledPlaylist(AudioEvent audioEvent)
+        internal AudioMixerSnapshot GetAudioMixerSnapshot(string name)
         {
-            List<AudioClip> shuffledList = audioEvent.audioClip;
-            int n = shuffledList.Count;  
-            while (n > 1) {  
-                n--;  
-                int k = m_Random.Next(n + 1);  
-                (shuffledList[k], shuffledList[n]) = (shuffledList[n], shuffledList[k]);
-            }
-            return shuffledList;
+            if (m_AudioMixerSnapshotDictionary.ContainsKey(name))
+                return m_AudioMixerSnapshotDictionary[name];
+
+            return null;
         }
+
+        public string[] GetEventIds => m_AudioDictionary.Keys.ToArray();
+        public string[] GetSnapshotsIds => m_AudioMixerSnapshotDictionary.Keys.ToArray();
+
+        private void OnValidate()
+        {
+            // check for duplicate ids
+            for (int i = 0; i < m_AudioEvents.Length; i++)
+            {
+                for (int j = i + 1; j < m_AudioEvents.Length; j++)
+                {
+                    if (m_AudioEvents[i].id == m_AudioEvents[j].id)
+                    {
+                        Debug.LogError($"Audio event name duplication {m_AudioEvents[i].id}");
+                        m_AudioEvents[j] = null;
+                    }
+                }
+            }
+        }
+
     }
 }

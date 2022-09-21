@@ -1,74 +1,107 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Audio;
 
 namespace Matterless.Audio
 {
     public class AudioView : IAudioView
     {
-        private readonly Dictionary<AudioMixerGroup, AudioSource> m_Sources;
-        private readonly Dictionary<string, AudioSource> m_LoopSources;
-        private readonly GameObject m_GameObject;
+        private readonly List<IAudioInstance> m_AudioInstances;
+        private readonly Dictionary<ulong, IAudioInstance> m_AudioInstancesDictionary;
+        private readonly Stack<AudioSource> m_AudioSourcePool;
+        private readonly AudioMono m_AudioMono;
+        private ulong m_IdCounter;
 
-        public AudioView(GameObject gameObject)
+        public AudioView(AudioMono audioMono)
         {
-            m_Sources = new Dictionary<AudioMixerGroup, AudioSource>();
-            m_LoopSources = new Dictionary<string, AudioSource>();
-            m_GameObject = gameObject;
+            m_AudioSourcePool = new Stack<AudioSource>();
+            m_AudioMono = audioMono;
+            m_AudioMono.onUpdate += Update;
+            m_IdCounter = 0;
+
+            m_AudioInstances = new List<IAudioInstance>();
+            m_AudioInstancesDictionary = new Dictionary<ulong, IAudioInstance>();
+
         }
 
-        public void PlayAudioClipLoop(string id, AudioClip audioClip, AudioMixerGroup audioMixerGroup)
+        ulong IAudioView.Play(AudioEvent audioEvent, Action onAutoStopped)
         {
-            AudioSource audioSource;
+            // 1. Get available audiosource
+            var audioSource = GetAvailableAudioSource();
+            // 2. Set settings
+            audioSource.outputAudioMixerGroup = audioEvent.channel;
+            // 3. generate an id
+            var id = ++m_IdCounter;
+            // 4. create audio Instance
+            var audioInstance = CreateAudioInstance(audioSource, audioEvent, id, onAutoStopped);
+            // 5. register audio Instance
+            m_AudioInstances.Add(audioInstance);
+            m_AudioInstancesDictionary.Add(id, audioInstance);
+            // 6. play
+            audioInstance.Start();
+            // 7. return id
+            return id;
+        }
 
-            if (m_LoopSources.ContainsKey(id))
+        bool IAudioView.Stop(ulong instnaceId, bool immediately)
+        {
+            if (m_AudioInstancesDictionary.ContainsKey(instnaceId))
             {
-                audioSource = m_LoopSources[id];
+                //Debug.Log($"Stop audio instance {instnaceId}");
+
+                if (immediately)
+                    m_AudioInstancesDictionary[instnaceId].StopImmediately();
+                else
+                    m_AudioInstancesDictionary[instnaceId].Stop();
+
+                return true;
             }
+
+            Debug.LogWarning($"Audio instance {instnaceId} does not exists");
+
+            return false;
+        }
+
+        private IAudioInstance CreateAudioInstance(AudioSource audioSource, 
+            AudioEvent audioEvent, ulong id, Action onAutoStopped)
+        {
+            if (audioEvent.isSignleEvent)
+                return new SingleAudioInstance(id, audioSource, audioEvent,
+                    onAutoStopped, OnAudioInstanceComplete);
             else
+                return new MultiAudioInstance(id, audioSource, audioEvent,
+                    onAutoStopped, OnAudioInstanceComplete);
+
+            throw new Exception("Create Audio Instance unresolved.");
+        }
+
+        private void Update()
+        {
+            for (int i = 0; i < m_AudioInstances.Count; i++)
+                m_AudioInstances[i].Update();
+        }
+
+        private void OnAudioInstanceComplete(IAudioInstance audioInstance)
+        {
+            //Debug.Log($"Remove audio instance {audioInstance.id}");
+            //Debug.Log($"Push audio source {audioInstance.audioSource.GetInstanceID()}");
+            m_AudioInstances.Remove(audioInstance);
+            m_AudioInstancesDictionary.Remove(audioInstance.id);
+            m_AudioSourcePool.Push(audioInstance.audioSource);
+            audioInstance.audioSource.clip = null;
+            audioInstance.audioSource.loop = false;
+        }
+
+        private AudioSource GetAvailableAudioSource()
+        {
+            if (m_AudioSourcePool.Count == 0)
             {
-                audioSource = m_GameObject.AddComponent<AudioSource>();
-                m_LoopSources.Add(id, audioSource);
+                var audioSource = m_AudioMono.gameObject.AddComponent<AudioSource>();
+                audioSource.playOnAwake = false;
+                return audioSource;
             }
 
-            if (audioSource.isPlaying)
-                audioSource.Stop();
-
-            audioSource.outputAudioMixerGroup = audioMixerGroup;
-            audioSource.loop = true;
-            audioSource.clip = audioClip;
-            audioSource.Play();
+            return m_AudioSourcePool.Pop();
         }
-
-        public void StopAudioClipLoop(string id)
-        {
-            if (m_LoopSources.ContainsKey(id))
-                m_LoopSources[id].Stop();
-        }
-
-        public void PlayAudioClipOnce(AudioClip audioClip, AudioMixerGroup audioMixerGroup)
-        {
-            AudioSource audioSource;
-
-            if (m_Sources.ContainsKey(audioMixerGroup))
-            {
-                audioSource = m_Sources[audioMixerGroup];
-            }
-            else
-            {
-                audioSource = m_GameObject.AddComponent<AudioSource>();
-                audioSource.outputAudioMixerGroup = audioMixerGroup;
-                m_Sources.Add(audioMixerGroup, audioSource);
-            }
-
-            audioSource.PlayOneShot(audioClip);
-        }
-
-        public void StopAudioClip(AudioMixerGroup channel)
-        {
-            if(m_Sources.ContainsKey(channel))
-                m_Sources[channel].Stop();
-        }
-
     }
 }

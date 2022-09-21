@@ -1,11 +1,11 @@
-﻿namespace Matterless.Audio
+﻿using System;
+
+namespace Matterless.Audio
 {
     public interface IAudioService
     {
-        void Play(System.Enum id);
-        void StopLoop(System.Enum id);
-        void Play(string id);
-        void StopLoop(string id);
-        void StopAudio(string id);
+        ulong Play(string id, Action onAutoStopped = null);
+        bool Stop(ulong instnaceId, bool immediately = false);
+        void TransitionTo(string snapshotName, float duration);
     }
 }

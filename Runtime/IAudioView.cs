@@ -1,13 +1,10 @@
-﻿using UnityEngine;
-using UnityEngine.Audio;
+﻿using System;
 
 namespace Matterless.Audio
 {
-    public interface IAudioView
+    internal interface IAudioView
     {
-        void PlayAudioClipOnce(AudioClip audioClip, AudioMixerGroup audioMixerGroup);
-        void PlayAudioClipLoop(string id, AudioClip audioClip, AudioMixerGroup audioMixerGroup);
-        void StopAudioClipLoop(string id);
-        void StopAudioClip(AudioMixerGroup channel);
+        ulong Play(AudioEvent audioEvent, Action onAutoStopped);
+        bool Stop(ulong instnaceId, bool immediately);
     }
 }

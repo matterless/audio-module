@@ -1,6 +1,6 @@
 {
   "name": "com.matterless.module.audio",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "displayName": "Matterless Audio Module",
   "description": "Audio Module for Matterless.",
   "unity": "2019.1",
@@ -9,11 +9,11 @@
     "email": "howard@matterless.com",
     "url": "https://www.matterless.com"
   },
-  "samples":[
+  "samples": [
     {
       "displayName": "Audio sample",
       "description": "Audio sample.",
-      "path":"Samples~/AudioSample"
+      "path": "Samples~/AudioSample"
     }
   ]
 }

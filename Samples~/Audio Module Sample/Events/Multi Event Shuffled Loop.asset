@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7af64904f8b858842bf5592ea118fc6a, type: 3}
+  m_Name: Multi Event Shuffled Loop
+  m_EditorClassIdentifier: 
+  m_Id: Multi Event Shuffled Loop
+  m_Channel: {fileID: 0}
+  m_SequenceType: 1
+  m_Loop: 1
+  m_AudioClips:
+  - {fileID: 8300000, guid: c1a6ce4a46f9d5b4cb364b7cbc58615c, type: 3}
+  - {fileID: 8300000, guid: b71263128251d114fb821304bc7362d7, type: 3}
+  - {fileID: 8300000, guid: 1156d50b003f5f34d98e5a0fc6c2ae82, type: 3}
+  - {fileID: 8300000, guid: 3e68f6635ea78fb488e29abbe4d2cb26, type: 3}
+  - {fileID: 8300000, guid: 32325df1924d17743adf3c5bd5c5b3cd, type: 3}
+  - {fileID: 8300000, guid: f75cec31486c78740b631b9126df9a85, type: 3}
+  - {fileID: 8300000, guid: 517fbf8523a129646a886bbe64d63738, type: 3}
+  - {fileID: 8300000, guid: e23c54b5dcde5804180a5ea60cb08d60, type: 3}
+  - {fileID: 8300000, guid: f2722783759f7d04a8670ab71d9b0caa, type: 3}
+  - {fileID: 8300000, guid: 37d79ec597f54e04b89cc64a78404229, type: 3}
+  m_Attack:
+    m_Curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_Duration: 3
+  m_Release:
+    m_Curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_Duration: 3

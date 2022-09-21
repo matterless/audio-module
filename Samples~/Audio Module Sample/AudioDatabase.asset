@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b00c52e2620c7c64ca4b761dae364c83, type: 3}
+  m_Name: AudioDatabase
+  m_EditorClassIdentifier: 
+  m_AudioEvents:
+  - {fileID: 11400000, guid: 78f99dd406cf6454689ea19fbd1be4bb, type: 2}
+  - {fileID: 11400000, guid: 2a5485d8c19946f4e97984fa66f8c755, type: 2}
+  - {fileID: 11400000, guid: 9ae655eb515f40b4fbc5b2661fc4ab5a, type: 2}
+  - {fileID: 11400000, guid: de43557a500883a4eb36b46854cd1585, type: 2}
+  - {fileID: 11400000, guid: 063a169af5fb51b4e93082782071467a, type: 2}
+  - {fileID: 11400000, guid: c55d09338e714da45859622ec51eea73, type: 2}
+  m_AudioMixerSnapshots:
+  - {fileID: 24500006, guid: ef39921d058999942b46966acd6877f6, type: 2}
+  - {fileID: -2312307953204446200, guid: ef39921d058999942b46966acd6877f6, type: 2}

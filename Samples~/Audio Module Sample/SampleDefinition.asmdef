@@ -1,0 +1,16 @@
+{
+    "name": "com.matterless.module.audio.sample",
+    "rootNamespace": "",
+    "references": [
+        "GUID:08996924625b69d48bc7c09fa30faadc"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
