@@ -5,8 +5,8 @@ using UnityEngine.Serialization;
 
 namespace Matterless.Audio
 {
-    public enum AudioEventType { PlayOnce, Loop, PlayOnceShuffled, LoopShuffled }
-    public enum SequenceType { Order, Shuffle, Random }
+    //public enum AudioEventType { PlayOnce, Loop, PlayOnceShuffled, LoopShuffled }
+    public enum SequenceType { Order = 0, Shuffle, Random, SignleRandom }
 
     [CreateAssetMenu(fileName = "AudioEvent", menuName = "Matterless/Audio/Event", order = 2)]
     public class AudioEvent : ScriptableObject
@@ -59,7 +59,7 @@ namespace Matterless.Audio
         internal bool hasFadeOut => m_Release.hasEnvelope;
 
         // signle event
-        internal bool isSignleEvent => m_AudioClips.Count == 1;
+        internal bool isSignleEvent => m_AudioClips.Count == 1 || m_SequenceType == SequenceType.SignleRandom;
         // multi event
         internal bool isMultiEvent => m_AudioClips.Count > 1;
         // clips count

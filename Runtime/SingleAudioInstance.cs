@@ -15,7 +15,7 @@ namespace Matterless.Audio
         protected override void OnStart()
         {
             m_AudioSource.loop = m_AudioEvent.isLoop;
-            m_AudioSource.clip = m_AudioEvent.audioClip[0];
+            m_AudioSource.clip = m_AudioEvent.audioClip[UnityEngine.Random.Range(0, m_AudioEvent.audioClip.Count)];
             m_AudioSource.Play();
         }
 

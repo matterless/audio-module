@@ -1,6 +1,6 @@
 {
   "name": "com.matterless.module.audio",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "displayName": "Matterless Audio Module",
   "description": "Audio Module for Matterless.",
   "unity": "2019.1",

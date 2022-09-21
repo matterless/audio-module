@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AudioEvents:
   - {fileID: 11400000, guid: 78f99dd406cf6454689ea19fbd1be4bb, type: 2}
+  - {fileID: 11400000, guid: 784c3ba55b283ed468085bea96efc3fe, type: 2}
   - {fileID: 11400000, guid: 2a5485d8c19946f4e97984fa66f8c755, type: 2}
   - {fileID: 11400000, guid: 9ae655eb515f40b4fbc5b2661fc4ab5a, type: 2}
   - {fileID: 11400000, guid: de43557a500883a4eb36b46854cd1585, type: 2}
