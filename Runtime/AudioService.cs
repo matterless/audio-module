@@ -33,6 +33,9 @@ namespace Matterless.Audio
                 GameObject.Destroy(m_AudioMono.gameObject);
         }
 
+        public ulong Play(Enum id, Action onAutoStopped = null)
+            => Play(id.ToString(), onAutoStopped);
+
         public ulong Play(string id, Action onAutoStopped = null)
         {
             if (m_AudioDatabase == null)
