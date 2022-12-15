@@ -21,6 +21,7 @@ namespace Matterless.Audio
         [SerializeField, FormerlySerializedAs("m_AudioClip")] private List<AudioClip> m_AudioClips;
 
         [Header("Envelope")]
+        [SerializeField, Range(0f, 1f)] private float m_MaxAmplitude = 1;
         [SerializeField] private Envelope m_Attack;
         [SerializeField] private Envelope m_Release;
 
@@ -57,6 +58,7 @@ namespace Matterless.Audio
         internal float fadeOutDuration => m_Release.duration;
         internal bool hasFadeIn => m_Attack.hasEnvelope;
         internal bool hasFadeOut => m_Release.hasEnvelope;
+        internal float maxAmplitude => m_MaxAmplitude;
 
         // signle event
         internal bool isSignleEvent => m_AudioClips.Count == 1 || m_SequenceType == SequenceType.SignleRandom;

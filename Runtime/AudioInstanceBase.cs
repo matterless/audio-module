@@ -46,10 +46,10 @@ namespace Matterless.Audio
             if (m_AudioEvent.hasFadeIn)
             {
                 m_AudioSource.volume = 0f;
-                m_FadeController.FadeIn(m_AudioEvent.fadeInDuration);
+                m_FadeController.FadeIn(m_AudioEvent.fadeInDuration, m_AudioEvent.maxAmplitude);
             }
             else
-                m_AudioSource.volume = 1f;
+                m_AudioSource.volume = m_AudioEvent.maxAmplitude;
 
             // start playing things
             OnStart();

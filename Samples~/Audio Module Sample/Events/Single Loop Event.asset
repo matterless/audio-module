@@ -18,6 +18,7 @@ MonoBehaviour:
   m_Loop: 1
   m_AudioClips:
   - {fileID: 8300000, guid: fb63a7e652f96f1488448bddd4ee1880, type: 3}
+  m_MaxAmplitude: 1
   m_Attack:
     m_Curve:
       serializedVersion: 2

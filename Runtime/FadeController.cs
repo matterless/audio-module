@@ -19,8 +19,9 @@ namespace Matterless.Audio
             m_AudioSource = audioSource;
         }
 
-        internal void FadeIn(float duration, Action onComplete = null) 
-            => Fade(duration, m_AudioSource.volume, 1, onComplete);
+        internal void FadeIn(float duration, float target, Action onComplete = null) 
+            => Fade(duration, m_AudioSource.volume, target, onComplete);
+
         internal void FadeOut(float duration, Action onComplete = null)
         {
             if (duration < float.Epsilon)

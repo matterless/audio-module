@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Id: Multi Event
   m_Channel: {fileID: 0}
+  m_SequenceType: 0
+  m_Loop: 0
   m_AudioClips:
   - {fileID: 8300000, guid: c1a6ce4a46f9d5b4cb364b7cbc58615c, type: 3}
   - {fileID: 8300000, guid: b71263128251d114fb821304bc7362d7, type: 3}
@@ -25,8 +27,20 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e23c54b5dcde5804180a5ea60cb08d60, type: 3}
   - {fileID: 8300000, guid: f2722783759f7d04a8670ab71d9b0caa, type: 3}
   - {fileID: 8300000, guid: 37d79ec597f54e04b89cc64a78404229, type: 3}
-  m_SequenceType: 0
-  m_Loop: 0
-  m_FadeIn: 0
-  m_FadeOut: 0
-  m_Type: 0
+  m_MaxAmplitude: 1
+  m_Attack:
+    m_Curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_Duration: 0
+  m_Release:
+    m_Curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_Duration: 0
